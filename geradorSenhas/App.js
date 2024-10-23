@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Modal } from 'react-native';
+
+// *** NOVO: Importações para Navegação ***
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+// *** Fim das Novas Importações para Navegação ***
+
+import SavedPasswords from "./src/screens/SavedPasswords"; // *** NOVO: Tela de Senhas Salvas ***
 import { ModalPassword } from './src/modal/index'
  
 let charset = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
- 
-export default function App() {
+
+// *** NOVO: Criação do Stack Navigator para as Telas ***
+const Stack = createStackNavigator();
+// *** Fim da Criação do Stack Navigator ***
+
+function HomeScreen({ navigation }) {
   const [senhaGerada, setSenhaGerada] = useState("")
   const [modalVisible, setModalVisible] = useState(false)
- 
+  const [SavedPasswords, setSavedPasswords] = useState([]); // *** NOVO: Estado para Senhas Salvas ***
+
   function gerarSenha(){
-   
     let senha = "";
  
     for (let i = 0, n = charset.length; i < 10; i++){
@@ -19,8 +30,18 @@ export default function App() {
     setSenhaGerada(senha);
     setModalVisible(true);
   }
- 
- 
+  
+ // ** NOVO: Função para Salvar Senha e Navegar para Tela de Senhas Salvas ***
+ function salvarSenha() {
+  setSavedPasswords(prevPasswords => { 
+    const updatedPasswords = [...prevPasswords, senhaGerada];
+    setModalVisible(false); // Fecha o modal após salvar a senha
+    navigation.navigate('SavedPasswords', { SavedPasswords: updatedPasswords }); // Navega e passa as senhas
+    return updatedPasswords; // Atualiza o estado de senhas salvas
+  });
+ }
+ // *** Fim da Função de Salvar Senha e Navegar ***
+
   return (    
     <View style={styles.container}>
       <Image
@@ -34,8 +55,12 @@ export default function App() {
         <Text style={styles.textButton}> Gerar Senha </Text>
       </TouchableOpacity>
 
+      <TouchableOpacity style={styles.button} onPress={salvarSenha}>
+        <Text style={styles.textButton}> Senhas Salvas </Text>
+      </TouchableOpacity>
+
       <Modal visible={modalVisible} animationType="fade" transparent={true}>
-      <ModalPassword senha={senhaGerada} handleClose={ () => setModalVisible(false) } />
+      <ModalPassword senha={senhaGerada} handleClose={ () => setModalVisible(false)} salvarSenha={salvarSenha} />
       </Modal>
      
       <Text style={styles.senha}> {senhaGerada} </Text>
@@ -43,6 +68,18 @@ export default function App() {
   );
 }
  
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="SavedPasswords" component={SavedPasswords} />
+        <Stack.Screen name="ShowSavedPasswords" component={SavedPasswords} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

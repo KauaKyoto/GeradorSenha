@@ -2,7 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-nativ
 import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-toast-message';
 
-export function ModalPassword({senha, handleClose}) {
+
+export function ModalPassword({senha, handleClose, salvarSenha }) {
 
     function copyToClipboard() {
         Clipboard.setStringAsync(senha);
@@ -27,11 +28,12 @@ export function ModalPassword({senha, handleClose}) {
         <Text style={styles.buttonText}> Voltar </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.button, styles.buttonSave]}>
+        <TouchableOpacity style={[styles.button, styles.buttonSave]} onPress={salvarSenha}>
             <Text style={styles.buttonSaveText}> Salvar senha </Text>
         </TouchableOpacity>
         </View>
 
+        
         </View>
         <Toast/>
         </View>
@@ -86,6 +88,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#392DE9",
         borderRadius: 8,
         },
+        buttonSavePassword:{
+            backgroundColor: "#392DE9",
+            borderRadius: 8,
+            },
         buttonSaveText:{
         color: "#FFF",
         fontWeight: 'bold'
