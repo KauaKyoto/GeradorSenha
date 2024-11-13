@@ -7,23 +7,23 @@ import { createStackNavigator } from '@react-navigation/stack';
 // *** Fim das Novas Importações para Navegação ***
 
 import SavedPasswords from "./src/screens/SavedPasswords"; // *** NOVO: Tela de Senhas Salvas ***
-import { ModalPassword } from './src/modal/index'
+import { ModalPassword } from './src/modal/index';
  
-let charset = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+let charset = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 // *** NOVO: Criação do Stack Navigator para as Telas ***
 const Stack = createStackNavigator();
 // *** Fim da Criação do Stack Navigator ***
 
 function HomeScreen({ navigation }) {
-  const [senhaGerada, setSenhaGerada] = useState("")
-  const [modalVisible, setModalVisible] = useState(false)
+  const [senhaGerada, setSenhaGerada] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
   const [SavedPasswords, setSavedPasswords] = useState([]); // *** NOVO: Estado para Senhas Salvas ***
 
-  function gerarSenha(){
+  function gerarSenha() {
     let senha = "";
  
-    for (let i = 0, n = charset.length; i < 10; i++){
+    for (let i = 0, n = charset.length; i < 10; i++) {
       senha += charset.charAt(Math.floor(Math.random() * n));
     }
  
@@ -31,16 +31,16 @@ function HomeScreen({ navigation }) {
     setModalVisible(true);
   }
   
- // ** NOVO: Função para Salvar Senha e Navegar para Tela de Senhas Salvas ***
- function salvarSenha() {
-  setSavedPasswords(prevPasswords => { 
-    const updatedPasswords = [...prevPasswords, senhaGerada];
-    setModalVisible(false); // Fecha o modal após salvar a senha
-    navigation.navigate('SavedPasswords', { SavedPasswords: updatedPasswords }); // Navega e passa as senhas
-    return updatedPasswords; // Atualiza o estado de senhas salvas
-  });
- }
- // *** Fim da Função de Salvar Senha e Navegar ***
+  // ** NOVO: Função para Salvar Senha e Navegar para Tela de Senhas Salvas ***
+  function salvarSenha() {
+    setSavedPasswords(prevPasswords => { 
+      const updatedPasswords = [...prevPasswords, senhaGerada];
+      setModalVisible(false); // Fecha o modal após salvar a senha
+      navigation.navigate('SavedPasswords', { SavedPasswords: updatedPasswords }); // Navega e passa as senhas
+      return updatedPasswords; // Atualiza o estado de senhas salvas
+    });
+  }
+  // *** Fim da Função de Salvar Senha e Navegar ***
 
   return (    
     <View style={styles.container}>
@@ -60,7 +60,7 @@ function HomeScreen({ navigation }) {
       </TouchableOpacity>
 
       <Modal visible={modalVisible} animationType="fade" transparent={true}>
-      <ModalPassword senha={senhaGerada} handleClose={ () => setModalVisible(false)} salvarSenha={salvarSenha} />
+        <ModalPassword senha={senhaGerada} handleClose={ () => setModalVisible(false)} salvarSenha={salvarSenha} />
       </Modal>
      
       <Text style={styles.senha}> {senhaGerada} </Text>
@@ -83,7 +83,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F5F5F5', // Branco luminoso
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -94,25 +94,35 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 28,
     marginBottom: 50,
+    color: '#2D2D2D', // Preto fosco
+    textShadowColor: 'rgba(0, 174, 239, 0.3)', // Glow azul leve
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   button: {
-    backgroundColor: '#333',
+    backgroundColor: '#333', // Preto fosco
     width: '70%',
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
-    padding: 6,    
+    padding: 6,
+    margin: 6,
+    shadowColor: '#00AEEF', // Glow azul neon
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 15,
   },
-  textButton:{
-    color: '#FFF',
+  textButton: {
+    color: '#FFF', // Branco
     fontSize: 15,
     fontWeight: 'bold',
   },
   senha: {
     marginTop: 20,
-    color: '#333',
+    color: '#333', // Preto fosco
     fontSize: 15,
     fontWeight: 'bold',
   },
 });
+
