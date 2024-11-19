@@ -8,6 +8,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import SavedPasswords from "./src/screens/SavedPasswords"; // *** NOVO: Tela de Senhas Salvas ***
 import { ModalPassword } from './src/modal/index';
+import Blog from './src/screens/Blog'; // Tela de Dicas de Senhas Fortes
+
  
 let charset = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -19,6 +21,7 @@ function HomeScreen({ navigation }) {
   const [senhaGerada, setSenhaGerada] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [SavedPasswords, setSavedPasswords] = useState([]); // *** NOVO: Estado para Senhas Salvas ***
+  
 
   function gerarSenha() {
     let senha = "";
@@ -59,6 +62,14 @@ function HomeScreen({ navigation }) {
         <Text style={styles.textButton}> Senhas Salvas </Text>
       </TouchableOpacity>
 
+      <TouchableOpacity 
+    style={styles.button} 
+    onPress={() => navigation.navigate('Blog')} // Navegar para a página Blog
+>
+    <Text style={styles.textButton}>Importância das Senhas Fortes</Text>
+</TouchableOpacity>
+
+
       <Modal visible={modalVisible} animationType="fade" transparent={true}>
         <ModalPassword senha={senhaGerada} handleClose={ () => setModalVisible(false)} salvarSenha={salvarSenha} />
       </Modal>
@@ -75,6 +86,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="SavedPasswords" component={SavedPasswords} />
         <Stack.Screen name="ShowSavedPasswords" component={SavedPasswords} />
+        <Stack.Screen name="Blog" component={Blog} /> 
       </Stack.Navigator>
     </NavigationContainer>
   )
