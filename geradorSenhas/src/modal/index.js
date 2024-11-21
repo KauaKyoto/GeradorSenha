@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     content:{
-        backgroundColor: "#FFF",
+        backgroundColor: "#000",
         width: "85%",
         paddingTop: 24,
         paddingBottom: 24, alignItems: 'center',
@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 28,
         fontWeight: "bold",
-        color: "#000",
+        color: "#FFF",
         marginBottom: 24,
     },
     innerPassword: {
-        backgroundColor: "#e0e0e0",
+        backgroundColor: "#404040",
         width: "90%",
         padding: 14,
         borderRadius: 8,
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         alignItems: "center",
         justifyContent: "space-between",
+        backgroundColor: "#000",
         },
         button: {
         flex: 1,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
         padding: 8,
         },
         buttonSave:{
-        backgroundColor: "#392DE9",
+        backgroundColor: "#2499c7",
         borderRadius: 8,
         },
         buttonSavePassword:{
@@ -94,6 +95,13 @@ const styles = StyleSheet.create({
             },
         buttonSaveText:{
         color: "#FFF",
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+    },
+    buttonText: {
+        backgroundColor: '#2499c7',
+        color: '#FFF',
+        padding: 5,
+        margin: 5,
+        borderRadius: 8,
     },
 })

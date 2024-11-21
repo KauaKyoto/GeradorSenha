@@ -27,17 +27,17 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         padding: 20,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#303030',
         alignItems: 'center',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#FFF',
         marginBottom: 20,
     },
     tipBox: {
-        backgroundColor: '#E0E0E0',
+        backgroundColor: '#000',
         padding: 15,
         marginVertical: 10,
         borderRadius: 8,
@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
     },
     tipText: {
         fontSize: 16,
-        color: '#000',
+        color: '#FFF',
     },
 });

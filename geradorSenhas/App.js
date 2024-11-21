@@ -34,6 +34,7 @@ function HomeScreen({ navigation }) {
     setModalVisible(true);
   }
   
+  
   // ** NOVO: Função para Salvar Senha e Navegar para Tela de Senhas Salvas ***
   function salvarSenha() {
     setSavedPasswords(prevPasswords => { 
@@ -44,15 +45,15 @@ function HomeScreen({ navigation }) {
     });
   }
   // *** Fim da Função de Salvar Senha e Navegar ***
-
+  
   return (    
     <View style={styles.container}>
       <Image
-        source={require("./src/img/logolock.png")}
+        source={require("./src/img/fotocadeado.png")}
         style={styles.logo}
       />
  
-      <Text style={styles.title}> LockGen </Text>
+      <Text style={styles.title}> KeyoGenerator </Text>
  
       <TouchableOpacity style={styles.button} onPress={gerarSenha}>
         <Text style={styles.textButton}> Gerar Senha </Text>
@@ -82,7 +83,17 @@ function HomeScreen({ navigation }) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#000', // Fundo preto
+          },
+          headerTintColor: '#FFF', // Texto branco
+          headerTitleStyle: {
+            fontWeight: 'bold', // (opcional) Deixa o texto "Home" mais destacado
+          },
+        }}
+      >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="SavedPasswords" component={SavedPasswords} />
         <Stack.Screen name="ShowSavedPasswords" component={SavedPasswords} />
@@ -95,24 +106,29 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5', // Branco luminoso
+    backgroundColor: '#303030', // Branco luminoso
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    marginBottom: 20,
+    width: '100%',               // Largura total disponível
+  height: undefined,           // Deixe o cálculo da altura ser automático
+  aspectRatio: 1,              // Mantém a proporção original
+  resizeMode: 'contain',       // Garantir que a imagem se ajuste sem distorcer
+  maxHeight: 300,              // Limita a altura máxima
+  marginBottom: 20,            // Espaço embaixo
   },
   title: {
     fontWeight: 'bold',
     fontSize: 28,
     marginBottom: 50,
-    color: '#2D2D2D', // Preto fosco
+    color: '#FFF', // Preto fosco
     textShadowColor: 'rgba(0, 174, 239, 0.3)', // Glow azul leve
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
   },
   button: {
-    backgroundColor: '#333', // Preto fosco
+    backgroundColor: '#000', // Preto fosco
     width: '70%',
     height: 50,
     alignItems: 'center',
@@ -120,7 +136,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 6,
     margin: 6,
-    shadowColor: '#00AEEF', // Glow azul neon
+    shadowColor: '#FFF', // Glow azul neon
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 15,
